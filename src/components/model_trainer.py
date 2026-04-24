@@ -13,7 +13,7 @@ from sklearn.metrics import r2_score
 from sklearn.tree import DecisionTreeRegressor
 from xgboost import XGBRegressor
 
-from src.exception import CustomeException
+from src.exception import CustomException
 from src.logger import logging
 from src.utils import save_object, evaluate_models
 
@@ -108,7 +108,7 @@ class ModelTrainer:
         
             # Check performance threshold
             if best_model_score < 0.6:
-                raise CustomeException("No good model found (R2 < 0.6)")
+                raise CustomException("No good model found (R2 < 0.6)")
 
         
             # Save best model
@@ -130,4 +130,4 @@ class ModelTrainer:
             return r2_square
 
         except Exception as e:
-            raise CustomeException(e, sys)
+            raise CustomException(e, sys)

@@ -22,7 +22,7 @@ def error_message_detail(error, error_detail: sys):
 
 
 # Custom Exception class (your own exception)
-class CustomeException(Exception):
+class CustomException(Exception):
 
     # Constructor method
     def __init__(self, error_message, error_detail: sys):

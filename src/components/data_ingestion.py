@@ -1,6 +1,6 @@
 import os
 import sys
-from src.exception import CustomeException   # Custom exception handling
+from src.exception import CustomException   # Custom exception handling
 from src.logger import logging             # Custom logging module
 import pandas as pd
 
@@ -63,14 +63,34 @@ class DataIngestion:
 
         except Exception as e:
             # Raise custom exception if any error occurs
-            raise CustomeException(e, sys)
+            raise CustomException(e, sys)
         
-if __name__=="__main__":
-    obj=DataIngestion()
-    train_data,test_data=obj.initate_data_ingestion()
 
-    data_Transformation=DataTransformation()
-    train_arr,test_arr,_=data_Transformation.initiate_data_transformation(train_data,test_data)
 
-    modeltrainer=ModelTrainer()
-    print(modeltrainer.initiate_model_trainer(train_arr,test_arr))
+# This ensures the code runs only when this file is executed directly
+if __name__ == "__main__":
+
+    #  Create an object of DataIngestion class
+    # This class is responsible for loading and splitting the dataset
+    obj = DataIngestion()
+
+    # Call the data ingestion method
+    # It returns training and testing datasets
+    train_data, test_data = obj.initate_data_ingestion()  # (typo likely: initiate_data_ingestion)
+
+    #  Create an object of DataTransformation class
+    # This class handles preprocessing like encoding, scaling, cleaning, etc.
+    data_Transformation = DataTransformation()
+
+    # Transform the raw train and test data into model-ready format (arrays)
+    # _ is used to ignore extra returned value (like preprocessing pipeline)
+    train_arr, test_arr, _ = data_Transformation.initiate_data_transformation(
+        train_data, test_data
+    )
+
+    #  Create an object of ModelTrainer class
+    # This class is responsible for training and evaluating the ML model
+    modeltrainer = ModelTrainer()
+
+    # Train the model using transformed data and print evaluation results
+    print(modeltrainer.initiate_model_trainer(train_arr, test_arr))

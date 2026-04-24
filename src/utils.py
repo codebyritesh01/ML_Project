@@ -4,7 +4,7 @@ import dill
 import numpy as np 
 import pandas as pd
 
-from src.exception import CustomeException
+from src.exception import CustomException
 from sklearn.metrics import r2_score
 from sklearn.model_selection import GridSearchCV
 
@@ -18,7 +18,7 @@ def save_object(file_path, obj):
             dill.dump(obj, file_obj)
 
     except Exception as e:
-        raise CustomeException(e,sys)
+        raise CustomException(e,sys)
     
 def evaluate_models(X_train, y_train, X_test, y_test, models, param):
     try:
@@ -36,9 +36,17 @@ def evaluate_models(X_train, y_train, X_test, y_test, models, param):
             y_test_pred = best_model.predict(X_test)
 
             report[name] = r2_score(y_test, y_test_pred)
-            best_models[name] = best_model   # ✔ MUST be this
+            best_models[name] = best_model   
 
         return report, best_models
 
     except Exception as e:
-        raise CustomeException(e, sys)
+        raise CustomException(e, sys)
+    
+def load_object(file_path):
+    try:
+        with open(file_path, "rb") as file_obj:
+            return dill.load(file_obj)
+        
+    except Exception as e:
+        raise CustomException(e, sys)
