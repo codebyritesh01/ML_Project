@@ -1,15 +1,17 @@
 import os
 import sys
-from src.exception import CustomException   # Custom exception handling
+from src.exception import CustomeException   # Custom exception handling
 from src.logger import logging             # Custom logging module
 import pandas as pd
 
 from sklearn.model_selection import train_test_split  # For splitting dataset
 from dataclasses import dataclass                     # For config class
 
+from src.components.data_transformation import DataTransformation
+from src.components.data_transformation import DataTransformationConfig
 
 # Configuration class to store file paths
-@dataclass
+@dataclass   #is a decorator that automatically generates special methods for a class that mainly stores data.eg(__init__())
 class DataIngestionConfig:
     train_data_path: str = os.path.join('artifacts', 'train.csv')  # Path for training data
     test_data_path: str = os.path.join('artifacts', 'test.csv')    # Path for testing data
@@ -58,4 +60,11 @@ class DataIngestion:
 
         except Exception as e:
             # Raise custom exception if any error occurs
-            raise CustomException(e, sys)
+            raise CustomeException(e, sys)
+        
+if __name__=="__main__":
+    obj=DataIngestion()
+    train_data,test_data=obj.initate_data_ingestion()
+
+    data_Transformation=DataTransformation()
+    data_Transformation.initiate_data_transformation(train_data,test_data)
