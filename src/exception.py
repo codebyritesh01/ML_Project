@@ -1,6 +1,6 @@
 import sys
 # sys module helps us get runtime error details (like traceback)
-
+from src.logger import logging
 
 # Function to create a detailed error message
 def error_message_detail(error, error_detail: sys):
