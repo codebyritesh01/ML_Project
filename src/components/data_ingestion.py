@@ -10,6 +10,9 @@ from dataclasses import dataclass                     # For config class
 from src.components.data_transformation import DataTransformation
 from src.components.data_transformation import DataTransformationConfig
 
+from src.components.model_trainer import ModelTrainer
+from src.components.model_trainer import ModelTrainerConfig
+
 # Configuration class to store file paths
 @dataclass   #is a decorator that automatically generates special methods for a class that mainly stores data.eg(__init__())
 class DataIngestionConfig:
@@ -67,4 +70,7 @@ if __name__=="__main__":
     train_data,test_data=obj.initate_data_ingestion()
 
     data_Transformation=DataTransformation()
-    data_Transformation.initiate_data_transformation(train_data,test_data)
+    train_arr,test_arr,_=data_Transformation.initiate_data_transformation(train_data,test_data)
+
+    modeltrainer=ModelTrainer()
+    print(modeltrainer.initiate_model_trainer(train_arr,test_arr))

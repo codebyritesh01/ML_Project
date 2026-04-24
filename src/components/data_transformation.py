@@ -92,7 +92,8 @@ class DataTransformation:
             test_arr = np.c_[
                 input_feature_test_arr, np.array(target_feature_test_df)
             ]
-            
+            # np.c_ is a convenient shortcut in NumPy used to concatenate arrays along the second axis (column-wise).
+
             logging.info(f"Saved preprocessing object")
 
             save_object(
